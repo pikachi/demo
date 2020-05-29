@@ -8,15 +8,21 @@ export class View {
     isaddPersistRoot = false;
 
     /**层级跨度 */
-    zIndexSpan:number = 10000;
+    zIndexSpan: number = 10000;
 
     constructor(node: cc.Node, zIndex: number, isaddPersistRoot: boolean) {
         this.node = node;
         this.zIndex = zIndex;
         this.isaddPersistRoot = isaddPersistRoot;
-        this.node.parent = cc.director.getScene().getChildByName("Canvas");
-        if(this.isaddPersistRoot){
+        this.node.parent = cc.director.getScene();
+        this.setPerSistRoot(isaddPersistRoot);
+    }
+
+    setPerSistRoot(isaddPersistRoot: boolean) {
+        if (isaddPersistRoot) {
             cc.game.addPersistRootNode(this.node)
+        } else {
+            cc.game.removePersistRootNode(this.node);
         }
     }
 
@@ -38,7 +44,7 @@ export class View {
     }
 
     /**关闭视图 */
-    close(){
+    close() {
         this.node.active = false;
     }
 

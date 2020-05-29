@@ -22,7 +22,7 @@ export default class ViewManager {
      * @param zIndex 层级
      * @param isaddPersistRoot 是否为常驻节点
      */
-    newView(node: cc.Node, zIndex: number, isaddPersistRoot: boolean) {
+    newView(node: cc.Node, zIndex: number, isaddPersistRoot: boolean = false) {
         let view = new View(node, zIndex, isaddPersistRoot);
         let cell: View = this.viewPool[node.name]
         if (cell) {
@@ -30,7 +30,6 @@ export default class ViewManager {
         }
         this.viewPool[node.name] = view;
     }
-
 
     /**
      * 打开视图
@@ -40,7 +39,7 @@ export default class ViewManager {
         this.addZindex++;
         if (!this.viewPool[_name]) {
             delete this.viewPool[_name];
-            console.log("没有这个窗口哦")
+            console.log("没有这个窗口哦");
             return
         } else {
             this.viewPool[_name].open(this.addZindex)
