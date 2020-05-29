@@ -17,8 +17,10 @@ var sanka;
     sanka.net = new NetManager();
 
     let ViewManager = require("../View/ViewManager").default;
-    ViewManager.ViewManager = ViewManager;
     sanka.view = new ViewManager();
+
+    let TimeManager = require("../Util/TimeManager").default;
+    sanka.time = new TimeManager();
 
     window["sanka"] = sanka;
     return sanka;
