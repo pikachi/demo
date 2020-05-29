@@ -28,7 +28,7 @@ export default class LoadManager {
      * @param _asset 资源类型
      * @param progressCallback 进度回调
      */
-    public loadRes(_url: string, completeCallback?: Function, _asset?: typeof cc.Asset, progressCallback?: Function) {
+    public loadRes(_url: string, completeCallback?: Function, _asset?: typeof cc.Asset, progressCallback?: Function, isDestroy?: boolean) {
         if (!_url || typeof (_url) !== "string") {
             console.warn("哔哔哔路径错误------>", _url);
         }
@@ -43,7 +43,7 @@ export default class LoadManager {
                             this.countRes(key);
                         }
                     } else {
-                        this.countRes(asset)
+                        this.countRes(asset, isDestroy)
                     }
                 }
                 completeCallback && completeCallback(asset);
@@ -130,7 +130,7 @@ export default class LoadManager {
     }
 
     /**记录资源 */
-    private countRes(_asset) {
+    private countRes(_asset, _isDestroy: boolean = false) {
         let res = cc.loader.getDependsRecursively(_asset)
         let name = _asset.uuid
         let assetKey = cc.loader["_getReferenceKey"](_asset);
@@ -139,7 +139,7 @@ export default class LoadManager {
             ref = this.loadPool[assetKey];
             ref.countNote(assetKey)
         } else {
-            ref = Resloader.create(assetKey, 0, res, name, assetKey);
+            ref = Resloader.create(assetKey, 0, res, name, assetKey, _isDestroy);
             this.loadPool[assetKey] = ref;
         }
     }
@@ -155,7 +155,7 @@ export default class LoadManager {
     /**批量销毁资源 */
     public destroyAll() {
         for (let key in this.loadPool) {
-            if (this.loadPool[key]) {
+            if (this.loadPool[key] && !this.loadPool[key].isDestroy) {
                 this.loadPool[key].destory();
                 delete this.loadPool[key]
             }
