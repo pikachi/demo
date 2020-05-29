@@ -11,15 +11,18 @@ export class Resloader {
     name: "";
     /**资源类型 */
     assetKey = "";
+    /**释放销毁资源 */
+    isDestroy = false;
 
 
     /**设置计数器 */
-    setTo(_url: string, _count: number, getDepends: string[], _name: string, assetKey: string) {
+    setTo(_url: string, _count: number, getDepends: string[], _name: string, assetKey: string, _isDestroy: boolean) {
         this.url = _url;
         this.count = _count;
         this.getDepends = getDepends;
         this.name = name;
         this.assetKey = assetKey;
+        !this.isDestroy && (this.isDestroy = _isDestroy);
         return this;
     }
 
@@ -35,11 +38,11 @@ export class Resloader {
     }
 
     /**创建计数器 */
-    static create(_url: string, _count: number, getDepends: string[], _name: string, assetKey: string): Resloader {
+    static create(_url: string, _count: number, getDepends: string[], _name: string, assetKey: string, _isDestroy: boolean): Resloader {
         if (Resloader.loaderPool.length <= 0) {
-            return new Resloader().setTo(_url, _count, getDepends, _name, assetKey);
+            return new Resloader().setTo(_url, _count, getDepends, _name, assetKey, _isDestroy);
         } else {
-            return Resloader.loaderPool.pop().setTo(_url, _count, getDepends, _name, assetKey)
+            return Resloader.loaderPool.pop().setTo(_url, _count, getDepends, _name, assetKey, _isDestroy)
         }
     }
 
@@ -52,6 +55,7 @@ export class Resloader {
         this.count = 0;
         this.name = "";
         this.assetKey = "";
+        this.isDestroy = false;
         return this;
     }
 
