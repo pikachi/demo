@@ -5,12 +5,10 @@ export default class BaseItem {
     sale: number;
     /**买价 */
     pay: number;
-    /**治疗 */
-    heal: number;
-    /**攻击 */
-    attack: number;
-    /**持续时间 */
-    duration: number;
+    /**id唯一标识 */
+    id: number;
+    /**名字 */
+    name: string;
     constructor(_tempData) {
         this.sale;
         this.pay;

@@ -161,7 +161,7 @@ export default class EventManager {
         }
         for (let key in EventManager.listenPool) {
             let listen = EventManager.listenPool[key];
-            listen[_eventName] && listen[_eventName].call(listen, _data);
+            listen[_eventName] && listen[_eventName].call(listen, ..._data);
         }
     }
 
