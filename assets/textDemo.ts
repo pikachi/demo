@@ -1,4 +1,3 @@
-import ScrollView from "./script/ScrolView";
 
 
 const { ccclass, property } = cc._decorator;
@@ -12,13 +11,11 @@ export default class textDemo extends cc.Component {
     @property({ type: cc.Node })
     mask: cc.Node = null;
 
-    @property({ type: ScrollView })
-    scrollView: ScrollView = null;
 
     onLoad() {
         // this.node.on("touchstart", this.touchstart, this);
         // this.node.on("touchmove", this.touchmove, this);
-        this.scrollView.node.on("touch-up",this.touchstart,this);
+        // this.scrollView.node.on("touch-up",this.touchstart,this);
     }
 
     start() {
