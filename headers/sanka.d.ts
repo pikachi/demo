@@ -1,12 +1,18 @@
 /**sanka声明 */
 declare module sanka {
+    /**事件管理 */
     export var event: EventManager;
+    /**加载管理 */
     export var loader: LoadManager;
+    /**场景管理 */
     export var scene: SceneManager;
+    /**网络管理 */
     export var net: NetManager;
+    /**视图管理 */
     export var view: ViewManager;
+    /**事件管理 */
     export var time: TimeManager;
-
+    /**工具集 */
     export class util {
 
     }
@@ -192,7 +198,7 @@ declare class TimeManager {
      * @param time 时间 单位秒
      * @param owner 执行域
      */
-    addSchedule(timeName: string,func: Function, time: number, owner)
+    addSchedule(timeName: string, func: Function, time: number, owner)
 
     /**
      * 添加一次倒计时
@@ -201,7 +207,7 @@ declare class TimeManager {
      * @param time 时间 单位秒
      * @param owner 执行域
      */
-    addScheduleOnce(timeName: string,func: Function, time: number, owner)
+    addScheduleOnce(timeName: string, func: Function, time: number, owner)
 
     /**
      * 清除倒计时
