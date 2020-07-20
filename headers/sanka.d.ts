@@ -157,8 +157,9 @@ declare class ViewManager {
      * @param node 节点
      * @param zIndex 层级
      * @param isaddPersistRoot 是否为常驻节点
+     * @param isFull 是否为全屏视图
      */
-    newView(node: cc.Node, zIndex: number, isaddPersistRoot?: boolean);
+    newView(node: cc.Node, zIndex: number, isaddPersistRoot?: boolean, isFull?: boolean);
 
     /**
      * 打开视图

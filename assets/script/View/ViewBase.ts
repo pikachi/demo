@@ -6,15 +6,22 @@ const { ccclass, property } = cc._decorator;
 export default class ViewBase extends cc.Component {
     /**是否全屏适配 */
     @property({ type: cc.Boolean, tooltip: "是否全屏适配,默认全屏适配" })
-    isFull: Boolean = true;
+    isFull: boolean = true;
 
+    /**是否为常驻节点 */
+    @property({ type: cc.Boolean, tooltip: "常驻节点才勾选 通常是多场景切换使用" })
+    isAddPersistRoot: boolean = false;
 
     /**设置层级 */
     @property({ type: Number, tooltip: "层级弹窗" })
     zIndex: number = 0;
 
+    /**窗口动画 */
+    @property({ type: Number, tooltip: "窗口动画" })
+    isPlayAnimation = false;
+
     onLoad() {
-        sanka.view.newView(this.node, this.zIndex);
+        sanka.view.newView(this.node, this.zIndex, this.isAddPersistRoot, this.isFull);
 
     }
 
@@ -23,7 +30,7 @@ export default class ViewBase extends cc.Component {
     }
 
     onEnable() {
-
+        this.startAnimation();
     }
 
     onDisable() {
@@ -61,4 +68,10 @@ export default class ViewBase extends cc.Component {
     touchend() {
 
     }
+
+    /**打开窗口动画 */
+    startAnimation(){
+
+    }
+
 }
