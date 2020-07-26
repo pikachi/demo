@@ -22,8 +22,8 @@ export default class ViewManager {
      * @param zIndex 层级
      * @param isaddPersistRoot 是否为常驻节点
      */
-    newView(node: cc.Node, zIndex: number, isaddPersistRoot: boolean = false) {
-        let view = new View(node, zIndex, isaddPersistRoot);
+    newView(node: cc.Node, zIndex: number, isFull: boolean = true, isaddPersistRoot: boolean = false) {
+        let view = new View(node, zIndex, isaddPersistRoot,isFull);
         let cell: View = this.viewPool[node.name]
         if (cell) {
             cell.destroy();

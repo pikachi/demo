@@ -10,7 +10,8 @@ export default class List<T>{
      * @param value 元素 
      */
     push(value) {
-        if (this.array.length < 0) {
+        if (this.array.length < 0 || typeof (this.array) != "object") {
+            console.error("数组有问题")
             return;
         }
         this.array.push(value);
@@ -19,8 +20,9 @@ export default class List<T>{
     /**取出元素 */
     pop() {
         if (this.array.length > 0) {
-            this.array.pop();
+            return this.array.pop();
         }
+        return null;
     }
 
     /**获取长度 */

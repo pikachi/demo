@@ -5,21 +5,25 @@ export class View {
     /**视图节点 */
     node: cc.Node = null;
     /**是否为常驻节点 */
-    isaddPersistRoot = false;
+    isAddPersistRoot = false;
 
     /**层级跨度 */
     zIndexSpan: number = 10000;
 
-    constructor(node: cc.Node, zIndex: number, isaddPersistRoot: boolean) {
+    /**是否为全屏视图 */
+    isFull = false;
+
+    constructor(node: cc.Node, zIndex: number, isAddPersistRoot: boolean, isFull: boolean = false) {
         this.node = node;
         this.zIndex = zIndex;
-        this.isaddPersistRoot = isaddPersistRoot;
+        this.isAddPersistRoot = isAddPersistRoot;
         this.node.parent = cc.director.getScene();
-        this.setPerSistRoot(isaddPersistRoot);
+        this.isFull = isFull;
+        this.setPerSistRoot(isAddPersistRoot);
     }
 
-    setPerSistRoot(isaddPersistRoot: boolean) {
-        if (isaddPersistRoot) {
+    setPerSistRoot(isAddPersistRoot: boolean) {
+        if (isAddPersistRoot) {
             cc.game.addPersistRootNode(this.node)
         } else {
             cc.game.removePersistRootNode(this.node);
@@ -31,7 +35,7 @@ export class View {
         this.node.destroy();
         this.zIndex = 0;
         this.node = null;
-        this.isaddPersistRoot = false;
+        this.isAddPersistRoot = false;
     }
 
     /**

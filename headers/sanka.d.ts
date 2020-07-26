@@ -1,14 +1,23 @@
 /**sanka声明 */
 declare module sanka {
+    /**事件管理 */
     export var event: EventManager;
+    /**加载管理 */
     export var loader: LoadManager;
+    /**场景管理 */
     export var scene: SceneManager;
+    /**网络管理 */
     export var net: NetManager;
+    /**视图管理 */
     export var view: ViewManager;
+    /**事件管理 */
     export var time: TimeManager;
+    /**技能管理 */
     export var skill: SkillManger;
+    /**人物管理 */
     export var character: CharacterManager;
 
+    /**工具集 */
     export class util {
 
     }
@@ -153,8 +162,9 @@ declare class ViewManager {
      * @param node 节点
      * @param zIndex 层级
      * @param isaddPersistRoot 是否为常驻节点
+     * @param isFull 是否为全屏视图
      */
-    newView(node: cc.Node, zIndex: number, isaddPersistRoot?: boolean);
+    newView(node: cc.Node, zIndex: number, isaddPersistRoot?: boolean, isFull?: boolean);
 
     /**
      * 打开视图
