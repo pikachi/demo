@@ -24,7 +24,7 @@ export default class LoadManager {
     /**
      * 动态加载资源
      * @param _url 路径
-     * @param completeCallback 完成回调
+     * @param completeCallback 完成回调 可选参数 asset
      * @param _asset 资源类型
      * @param progressCallback 进度回调
      */
