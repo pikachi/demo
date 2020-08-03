@@ -1,9 +1,11 @@
+import BaseComponent from "../Component/BaseComponent";
+
 const { ccclass, property } = cc._decorator;
 @ccclass
 /**视图基类
  * 所有视图基于此类开发
  */
-export default class ViewBase extends cc.Component {
+export default class ViewBase extends BaseComponent {
     /**是否全屏适配 */
     @property({ type: cc.Boolean, tooltip: "是否全屏适配,默认全屏适配" })
     isFull: boolean = true;
@@ -22,11 +24,6 @@ export default class ViewBase extends cc.Component {
 
     onLoad() {
         sanka.view.newView(this.node, this.zIndex, this.isAddPersistRoot, this.isFull);
-
-    }
-
-    start() {
-
     }
 
     onEnable() {
@@ -38,15 +35,10 @@ export default class ViewBase extends cc.Component {
     }
 
     onDestroy() {
-        this.node.off("touchend");
-        sanka.event.offListenAll(this);
-        sanka.event.offListens(this);
+        super.onDestroy();
         sanka.view.destroyView(this.node.name);
     }
 
-    update(dt) {
-
-    }
 
     /**是否全屏适配 */
     setNodeWidget() {
@@ -62,16 +54,16 @@ export default class ViewBase extends cc.Component {
 
     /**设置不可穿透 */
     setNoInputEvent() {
-        this.node.on("touchend", this.touchend, this);
+        this.node.on("touchend", this.touchEndEvent, this);
     }
 
-    touchend() {
-
-    }
 
     /**打开窗口动画 */
     startAnimation(){
-
+        let action = cc.scaleTo(0.5,1)
+        this.node.stopAllActions();
+        this.node.scale = 0;
+        this.node.runAction(action);
     }
 
 }
