@@ -1,4 +1,5 @@
-import SkillManger from '../Skill/SkillManager';
+import Enemy from "./Enemy";
+
 /**
  * 角色管理器
  */
@@ -28,16 +29,19 @@ export default class CharacterManager {
      * @param enemyId 敌人Id
      * @param node 敌人节点
      */
-    setEnemy(enemyId: any, node: cc.Node) {
-        this.enemyPool[enemyId] = node;
+    setEnemy(enemyId: any, enemy: Enemy) {
+        this.enemyPool[enemyId] = enemy;
     }
 
     /**
      * 创建敌人
      * @param enemyArr 敌人组 
      */
-    creatEnemy(enemyArr) {
-
+    creatEnemy(enemyArr: Array<number>) {
+        for (let i = 0, l = enemyArr.length; i < l; i++) {
+            let tempEnemy = new Enemy(i, enemyArr[i])
+            this.setEnemy(i, tempEnemy)
+        }
     }
 
     /**

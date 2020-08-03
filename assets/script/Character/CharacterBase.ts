@@ -1,8 +1,8 @@
 /**人物基类 */
 export default class CharacterBase {
     /**玩家id */
-    playerId: number = 0;
-    node: cc.Node = null;
+    Id: number = 0;
+    characterId: number = null;
 
     //角色属性
     hp = 0; // 生命值
@@ -12,9 +12,30 @@ export default class CharacterBase {
     specialDefense = 0; //特殊防御
     speed = 0; // 速度
 
+    node:cc.Node = null;
 
-    constructor(playerId, node:cc.Node) {
-        this.playerId = playerId;
-        this.node = node;
+    
+
+    /**
+     * 构造函数
+     * @param Id 
+     * @param CharacterId 
+     */
+    constructor(Id:number, characterId:number) {
+        this.Id = Id;
+        this.characterId = characterId;
+        this.createCharater();
+    }
+
+    /**创建人物 */
+    createCharater(){
+        sanka.loader.loadRes("",(cell)=>{
+            this.node = cell;
+        });
+    }
+
+    /**设置基础属性 */
+    setAttribute(){
+        
     }
 }
