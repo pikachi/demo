@@ -12,6 +12,11 @@ declare module sanka {
     export var view: ViewManager;
     /**事件管理 */
     export var time: TimeManager;
+    /**技能管理 */
+    export var skill: SkillManger;
+    /**人物管理 */
+    export var character: CharacterManager;
+
     /**工具集 */
     export class util {
 
@@ -222,4 +227,86 @@ declare class TimeManager {
      * @param owner 执行域
      */
     clearAllSchedule(owner)
+}
+
+/**技能管理 */
+declare class SkillManger {
+    /**
+     * 攻击敌人 
+     * @param attack  攻击方
+     * @param defense  防御方
+     */
+    attackEnemy(attack: cc.Node, defense: cc.Node);
+
+    /**
+     * 增益效果
+     * @param playerId 受益方
+     */
+    buffStatc(playerId) {
+
+    }
+
+
+    /**
+     * 被选中的技能
+     * @param skillId 
+     */
+    chooseSkill(skillId);
+
+    /**获得被选中技能 */
+    getchooseSkill();
+
+    /**重置被选中技能 */
+    resetChooseSkill();
+
+    /**
+     * 导入技能池
+     * @param skillId 技能id
+     * @param node 技能卡
+     */
+    setSkill(skillId, node: cc.Node);
+
+    /**隐藏技能 */
+    hideSKill();
+
+    /**返回 */
+    returnSkill()
+}
+
+/**人物管理 */
+declare class CharacterManager {
+    /**
+     * 压入角色
+     * @param playerId 玩家Id
+     * @param node 玩家节点
+     */
+    public setPlayer(playerId: any, node: cc.Node);
+
+    /**
+     * 压入敌人
+     * @param enemyId 敌人Id
+     * @param node 敌人节点
+     */
+    setEnemy(enemyId: any, node: cc.Node);
+
+    /**
+     * 创建敌人
+     * @param enemyArr 敌人组 
+     */
+    creatEnemy(enemyArr)
+
+    /**
+     * 被选中的玩家
+     * @param id 玩家id
+     */
+    choosePlayer(id)
+
+    /**
+     * 被选中的敌人
+     * @param id 敌人id
+     */
+    chooseEnemy(id);
+
+    /**移除选择 */
+    resetChoose();
 }

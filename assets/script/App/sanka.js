@@ -22,7 +22,22 @@ var sanka;
     let TimeManager = require("../Util/TimeManager").default;
     sanka.time = new TimeManager();
 
+    let SkillManager = require("../Skill/SkillManager").default;
+    sanka.skill = new SkillManager();
+
+    let CharacterManager = require("../Character/CharacterManager").default;
+    sanka.character = new CharacterManager();
+
     window["sanka"] = sanka;
     return sanka;
 })(sanka || (sanka = {}));
+
+var Config;
+(function(){
+    Config = (data)=>{
+
+    }
+    window["Config"] = Config;
+    return Config;
+})
 
