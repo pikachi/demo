@@ -116,4 +116,31 @@ export default class Util {
         }
         return arr;
     }
+
+    /**
+     * 保存数据
+     * @param key 
+     * @param value 存储数据
+     */
+    static saveData(key,value){
+        let json = JSON.stringify(value);
+        localStorage.setItem(key,json);
+    }
+
+    /**
+     * 获取数据
+     * @param key key值
+     */
+    static getData(key){
+        let text = localStorage.getItem(key)
+        return JSON.parse(text);
+    }
+
+    /**
+     * 移除数据
+     * @param key 
+     */
+    static removeData(key){
+        localStorage.removeItem(key)
+    }
 }
