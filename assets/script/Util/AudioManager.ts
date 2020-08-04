@@ -47,8 +47,8 @@ export default class AudioManager {
     }
 
     /**停止音效 */
-    stopEffect() {
-        cc.audioEngine.stopEffect(this.musicId);
+    stopEffect(musicId?) {
+        cc.audioEngine.stopEffect(musicId||this.musicId);
     }
 
     /**停止所有音效 */

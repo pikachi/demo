@@ -16,10 +16,29 @@ declare module sanka {
     export var skill: SkillManger;
     /**人物管理 */
     export var character: CharacterManager;
+    /**声音管理 */
+    export var audio: AudioManager;
 
     /**工具集 */
     export class util {
+        /**
+         * 保存数据
+         * @param key 
+         * @param value 存储数据
+         */
+        static saveData(key, value);
 
+        /**
+         * 获取数据
+         * @param key key值
+         */
+        static getData(key);
+
+        /**
+         * 移除数据
+         * @param key 
+         */
+        static removeData(key);
     }
 
     export class EventManager {
@@ -309,4 +328,52 @@ declare class CharacterManager {
 
     /**移除选择 */
     resetChoose();
+}
+
+/**声音管理 */
+declare class AudioManager {
+
+    /**
+     * 播放背景音乐
+     * @param music 音乐
+     * @param isLoop 是否循环
+     */
+    playBgMusic(music: cc.AudioClip, isLoop: boolean = true): number;
+
+    /**
+     * 播放音效
+     * @param effect 音效 
+     * @param loop 
+     */
+    playEffect(effect: cc.AudioClip, loop: boolean = false): number;
+
+    /**停止背景音乐 */
+    stopBgMusic(): void;
+
+    /**
+     * 停止音效 不填默认停止上一个音效
+     * @param musicId 
+     */
+    stopEffect(musicId?: number): void;
+
+    /**停止所有音效 */
+    stopAllEffect(): void;
+
+    /**
+     * 设置音效音量
+     * @param volume 范围(0~1) 
+     */
+    setEffectVolume(volume: number): void;
+
+    /**
+     * 设置背景音量
+     * @param volume 范围(0~1)
+     */
+    setBgMusicVolume(volume: number): void;
+
+    /**获取音效音量 */
+    getEffectVolume(): void
+
+    /**获取背景音乐音量 */
+    getBgMusicVolume(): void
 }

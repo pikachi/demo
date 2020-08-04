@@ -28,6 +28,9 @@ var sanka;
     let CharacterManager = require("../Character/CharacterManager").default;
     sanka.character = new CharacterManager();
 
+    let AudioManager = require("../Util/AudioManager").default;
+    sanka.audio = new AudioManager();
+
     window["sanka"] = sanka;
     return sanka;
 })(sanka || (sanka = {}));
