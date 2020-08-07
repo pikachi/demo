@@ -7,20 +7,20 @@ const { ccclass, property } = cc._decorator;
  */
 export default class ViewBase extends BaseComponent {
     /**是否全屏适配 */
-    @property({ type: cc.Boolean, tooltip: "是否全屏适配,默认全屏适配" })
+    @property({ type: Boolean, tooltip: "是否全屏适配,默认全屏适配" })
     isFull: boolean = true;
 
     /**是否为常驻节点 */
-    @property({ type: cc.Boolean, tooltip: "常驻节点才勾选 通常是多场景切换使用" })
+    @property({ type: Boolean, tooltip: "常驻节点才勾选 通常是多场景切换使用" })
     isAddPersistRoot: boolean = false;
 
     /**设置层级 */
-    @property({ type: Number, tooltip: "层级弹窗" })
+    @property({ type: cc.Integer, tooltip: "层级弹窗" })
     zIndex: number = 0;
 
     /**窗口动画 */
-    @property({ type: Number, tooltip: "窗口动画" })
-    isPlayAnimation = false;
+    @property({ type: Boolean, tooltip: "窗口动画" })
+    isPlayAnimation: boolean = false;
 
     onLoad() {
         sanka.view.newView(this.node, this.zIndex, this.isAddPersistRoot, this.isFull);
@@ -59,8 +59,8 @@ export default class ViewBase extends BaseComponent {
 
 
     /**打开窗口动画 */
-    startAnimation(){
-        let action = cc.scaleTo(0.5,1)
+    startAnimation() {
+        let action = cc.scaleTo(0.5, 1)
         this.node.stopAllActions();
         this.node.scale = 0;
         this.node.runAction(action);

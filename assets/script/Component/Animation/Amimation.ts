@@ -6,19 +6,19 @@ const { ccclass, property } = cc._decorator;
  */
 export default class Animation extends cc.Component {
     /**是否开始播放 */
-    @property({ type: cc.Boolean, tooltip: "是否开始播放" })
+    @property({ type: Boolean, tooltip: "是否开始播放" })
     isStartPlay: boolean = true;
 
     /**是否循环 */
-    @property({ type: cc.Boolean, tooltip: "是否循环播放" })
+    @property({ type: Boolean, tooltip: "是否循环播放" })
     isLoop: boolean = false;
 
     /**是否倒播 */
-    @property({ type: cc.Boolean, tooltip: "是否倒序播放" })
+    @property({ type: Boolean, tooltip: "是否倒序播放" })
     isRewind: boolean = false;
 
     /**循环次数 */
-    @property({ type: Number, tooltip: "播放次数,选择循环播放同时设置-1默认无限循环" })
+    @property({ type: cc.Integer, tooltip: "播放次数,选择循环播放同时设置-1默认无限循环" })
     playTime: number = 1;
 
     /**图集 */
@@ -30,7 +30,7 @@ export default class Animation extends cc.Component {
     animationName: string = null;
 
     /**播放速度 */
-    @property({ type: Number, tooltip: "播放速度" })
+    @property({ type: cc.Integer, tooltip: "播放速度" })
     playSpeed: number = 1;
 
     /**记录当前帧 */

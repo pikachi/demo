@@ -41,7 +41,7 @@ export default class Util {
      * @param arr 数组
      * 假设序列有n个元素,先将这n建成大顶堆，然后取堆顶元素，与序列第n个元素交换，然后调整前n-1元素，使其重新成为堆，然后再取堆顶元素，与第n-1个元素交换，再调整前n-2个元素...直至整个序列有序。
      */
-    heapSort(arr: []) {
+    static heapSort(arr: []) {
 
     }
 
@@ -50,7 +50,7 @@ export default class Util {
      * @param arr 数组
      * 将一个记录插入到已排序的有序表中，从而得到一个新的，记录数增1的有序表
      */
-    insertSort(arr: []) {
+    static insertSort(arr: []) {
 
     }
 
@@ -59,7 +59,7 @@ export default class Util {
      * @param arr 数组
      * 选择排序与冒泡排序有点像，只不过选择排序每次都是在确定了最小数的下标之后再进行交换，大大减少了交换的次数
      */
-    selectSort(arr: []) {
+    static selectSort(arr: []) {
         let _arr = [];
         for (let i = 0; i < arr.length; i++) {
             if (_arr.length == 0) {
@@ -80,7 +80,7 @@ export default class Util {
      * @param arr 数组
      * 希尔排序是插入排序的一种高效率的实现，也叫缩小增量排序。简单的插入排序中，如果待排序列是正序时，时间复杂度是O(n)，如果序列是基本有序的，使用直接插入排序效率就非常高。希尔排序就利用了这个特点。基本思想是：先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录基本有序时再对全体记录进行一次直接插入排序。
      */
-    shellSort(arr: []) {
+    static shellSort(arr: []) {
 
     }
 
@@ -89,7 +89,7 @@ export default class Util {
      * @param arr 数组
      * 1.把有序表划分成元素个数尽量相等的两半2.把两半元素分别排序3.把两个有序表合并成一个
      */
-    metgeSort(arr: []) {
+    static metgeSort(arr: []) {
 
     }
 
@@ -98,7 +98,7 @@ export default class Util {
      * @param arr 数组
      * 当待排序的数的值都是在一定的范围内的整数时，可以用待排序的数作为计数数组的下标，统计每个数的个数，然后依次输出即可
      */
-    countSort(arr: Array<number>, isReplace: boolean = true) {
+    static countSort(arr: Array<number>, isReplace: boolean = true) {
         if (!Array.isArray(arr)) {
             return;
         }
@@ -122,16 +122,16 @@ export default class Util {
      * @param key 
      * @param value 存储数据
      */
-    static saveData(key,value){
+    static saveData(key, value) {
         let json = JSON.stringify(value);
-        localStorage.setItem(key,json);
+        localStorage.setItem(key, json);
     }
 
     /**
      * 获取数据
      * @param key key值
      */
-    static getData(key){
+    static getData(key) {
         let text = localStorage.getItem(key)
         return JSON.parse(text);
     }
@@ -140,7 +140,39 @@ export default class Util {
      * 移除数据
      * @param key 
      */
-    static removeData(key){
+    static removeData(key) {
         localStorage.removeItem(key)
+    }
+
+    /**
+     * 数组排列方式
+     * @param array 传入需要排列字段 可多个 
+     * 如["a"],["a","b"],默认从小到大排序
+     * 需要从大到小则传入true
+     * 如[["a",true]],[["a",true],["a",true]]
+     */
+    sortFunc(array) {
+        return (front, next) => {
+            let count = 0;
+            let length = Object.keys(array).length;
+            for (let key in array) {
+                let temp = array[key];
+                let element = null;
+                let tempSort = null
+                if (typeof temp == "object") {
+                    element = temp[0];
+                    tempSort = temp[1];
+                } else {
+                    element = temp;
+                }
+                let frontValue = front[element] || 0;
+                let nextValue = front[element] || 0;
+                if (tempSort) {
+                    return nextValue - frontValue;
+                } else {
+                    return frontValue - nextValue;
+                }
+            }
+        }
     }
 }

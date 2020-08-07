@@ -75,6 +75,7 @@ export default class EventManager {
         }
         if (!_caller) {
             console.log(_caller, "不存在事件")
+            return;
         }
         let event: Handler = Handler.create(_owner, _caller, _arg, once);
         if (!EventManager.eventPool[_eventName]) {
@@ -118,6 +119,7 @@ export default class EventManager {
     offListenAll(_owner): EventManager {
         if (!_owner) {
             console.log("莫得作用域")
+            return;
         }
         for (let key in EventManager.eventPool) {
             // let listen: Handler[] = EventManager.eventPool[key];
@@ -136,6 +138,7 @@ export default class EventManager {
     addAllListens(_listen, offBefore: boolean = true) {
         if (!_listen) {
             console.log("莫得对象");
+            return;
         }
         if (EventManager.listenPool[_listen]) {
             if (offBefore) {
@@ -146,7 +149,6 @@ export default class EventManager {
         } else {
             EventManager.listenPool[_listen] = _listen;
             // console.log(EventManager.listenPool[_listen]);
-
         }
     }
 
@@ -158,6 +160,7 @@ export default class EventManager {
     emitListens(_eventName: string, ..._data: any) {
         if (!_eventName) {
             console.log("莫得事件名")
+            return;
         }
         for (let key in EventManager.listenPool) {
             let listen = EventManager.listenPool[key];

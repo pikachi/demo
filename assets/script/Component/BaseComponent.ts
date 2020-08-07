@@ -28,16 +28,16 @@ export default class BaseComponent extends cc.Component {
     }
 
     /**触摸结束事件 */
-    touchEndEvent(e){
+    touchEndEvent(e) {
     }
 
     /**触摸开始事件 */
-    touchStartEvent(e){
+    touchStartEvent(e) {
 
     }
 
     /**触摸移动事件 */
-    touchMoveEvent(e){
+    touchMoveEvent(e) {
 
     }
 
@@ -47,6 +47,7 @@ export default class BaseComponent extends cc.Component {
         this.node.off("touchmove");
         sanka.event.offListenAll(this);
         sanka.event.offListens(this);
+        sanka.time.clearAllSchedule(this);
     }
 
     /**获取节点世界坐标 */
