@@ -1,20 +1,21 @@
-const { ccclass, property } = cc._decorator;
+const { ccclass, property,menu } = cc._decorator;
 @ccclass
 /**帧动画
  * 播放图片必须名字一致，且按正序排列，
  * 必须添加精灵组件 如无自动添加
  */
+@menu("sanka/animation(动画组件)")
 export default class Animation extends cc.Component {
     /**是否开始播放 */
-    @property({ type: Boolean, tooltip: "是否开始播放" })
+    @property({tooltip: "是否开始播放" })
     isStartPlay: boolean = true;
 
     /**是否循环 */
-    @property({ type: Boolean, tooltip: "是否循环播放" })
+    @property({  tooltip: "是否循环播放" })
     isLoop: boolean = false;
 
     /**是否倒播 */
-    @property({ type: Boolean, tooltip: "是否倒序播放" })
+    @property({  tooltip: "是否倒序播放" })
     isRewind: boolean = false;
 
     /**循环次数 */
@@ -26,8 +27,8 @@ export default class Animation extends cc.Component {
     aniSpriteAtlas: cc.SpriteAtlas = null;
 
     /**播放名字（无需带数字） */
-    @property({ type: cc.String, tooltip: "播放动画名字（无需带数字），如无则为轮播图集" })
-    animationName: string = null;
+    @property({tooltip: "播放动画名字（无需带数字），如无则为轮播图集" })
+    animationName: string = "";
 
     /**播放速度 */
     @property({ type: cc.Integer, tooltip: "播放速度" })

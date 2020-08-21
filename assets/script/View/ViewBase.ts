@@ -7,11 +7,11 @@ const { ccclass, property } = cc._decorator;
  */
 export default class ViewBase extends BaseComponent {
     /**是否全屏适配 */
-    @property({ type: Boolean, tooltip: "是否全屏适配,默认全屏适配" })
+    @property({ tooltip: "是否全屏适配,默认全屏适配" })
     isFull: boolean = true;
 
     /**是否为常驻节点 */
-    @property({ type: Boolean, tooltip: "常驻节点才勾选 通常是多场景切换使用" })
+    @property({ tooltip: "常驻节点才勾选 通常是多场景切换使用" })
     isAddPersistRoot: boolean = false;
 
     /**设置层级 */
@@ -19,7 +19,7 @@ export default class ViewBase extends BaseComponent {
     zIndex: number = 0;
 
     /**窗口动画 */
-    @property({ type: Boolean, tooltip: "窗口动画" })
+    @property({ tooltip: "窗口动画" })
     isPlayAnimation: boolean = false;
 
     onLoad() {
