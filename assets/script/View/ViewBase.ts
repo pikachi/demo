@@ -1,10 +1,9 @@
 import BaseComponent from "../Component/BaseComponent";
-
-const { ccclass, property } = cc._decorator;
-@ccclass
 /**视图基类
  * 所有视图基于此类开发
  */
+const { ccclass, property } = cc._decorator;
+@ccclass
 export default class ViewBase extends BaseComponent {
     /**是否全屏适配 */
     @property({ tooltip: "是否全屏适配,默认全屏适配" })

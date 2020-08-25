@@ -1,4 +1,5 @@
 import Enemy from "./Enemy";
+import Player from "./Player";
 
 /**
  * 角色管理器
@@ -20,8 +21,8 @@ export default class CharacterManager {
      * @param playerId 玩家Id
      * @param node 玩家节点
      */
-    public setPlayer(playerId: any, node: cc.Node) {
-        this.playerPool[playerId] = node;
+    public setPlayer(playerId: any, player: Player) {
+        this.playerPool[playerId] = player;
     }
 
     /**
@@ -41,6 +42,17 @@ export default class CharacterManager {
         for (let i = 0, l = enemyArr.length; i < l; i++) {
             let tempEnemy = new Enemy(i, enemyArr[i])
             this.setEnemy(i, tempEnemy)
+        }
+    }
+
+        /**
+     * 创建敌人
+     * @param playerArr 敌人组 
+     */
+    creatPlayer(playerArr: Array<number>) {
+        for (let i = 0, l = playerArr.length; i < l; i++) {
+            let tempPlayer = new Player(i, playerArr[i])
+            this.setPlayer(i, tempEnemy)
         }
     }
 

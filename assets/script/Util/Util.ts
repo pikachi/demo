@@ -175,4 +175,23 @@ export default class Util {
             }
         }
     }
+
+    /**
+     * 数组去重
+     * @param arr 数组 
+     */
+    deduplication(arr: []): Array<any>[] {
+        let newArr = new Set(arr);
+        return Array.from(newArr);
+    }
+
+    /**
+     * 扁平化去重(多层嵌套数组)如：[1,[2,2]]
+     * @param arr 
+     */
+    flattening(arr){
+        return arr.reduce((pre, item)=>{
+            return pre.concat(Array.isArray(item) ? this.flattening(item) : item);
+        }, [])
+    }
 }
