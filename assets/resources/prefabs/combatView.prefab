@@ -83,7 +83,7 @@
     "_enabled": true,
     "isFull": true,
     "isAddPersistRoot": false,
-    "zIndex": 0,
+    "zIndex": 1,
     "isPlayAnimation": false,
     "_id": ""
   },

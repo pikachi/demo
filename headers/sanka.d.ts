@@ -299,20 +299,26 @@ declare class CharacterManager {
      * @param playerId 玩家Id
      * @param node 玩家节点
      */
-    public setPlayer(playerId: any, node: cc.Node);
+    public setPlayer(playerId: any, node: cc.Node)
 
     /**
      * 压入敌人
      * @param enemyId 敌人Id
      * @param node 敌人节点
      */
-    setEnemy(enemyId: any, node: cc.Node);
+    setEnemy(enemyId: any, node: cc.Node)
 
     /**
      * 创建敌人
      * @param enemyArr 敌人组 
      */
-    creatEnemy(enemyArr)
+    creatEnemy(enemyArr);
+
+    /**
+     * 创建玩家
+     * @param playerArr 玩家组 
+     */
+    creatPlayer(playerArr: Array<number>);
 
     /**
      * 被选中的玩家

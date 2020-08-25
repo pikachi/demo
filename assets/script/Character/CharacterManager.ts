@@ -45,14 +45,20 @@ export default class CharacterManager {
         }
     }
 
-        /**
-     * 创建敌人
-     * @param playerArr 敌人组 
+    /**
+     * 创建玩家
+     * @param playerArr 玩家组 
      */
     creatPlayer(playerArr: Array<number>) {
+        if (typeof playerArr != "object") {
+            return;
+        }
+        if (playerArr.length == 0) {
+            return;
+        }
         for (let i = 0, l = playerArr.length; i < l; i++) {
             let tempPlayer = new Player(i, playerArr[i])
-            this.setPlayer(i, tempEnemy)
+            this.setPlayer(i, tempPlayer)
         }
     }
 
