@@ -4,9 +4,12 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 /**战斗场景 */
-export default class combatView extends ViewBase {
+export default class CombatView extends ViewBase {
 
     data = null;
+
+    @property(cc.Node)
+    saveCharacter:cc.Node = null;
 
     onLoad(){
         super.onLoad();
@@ -14,7 +17,9 @@ export default class combatView extends ViewBase {
 
     init(data){
         this.data = data;
-        
+        sanka.character.saveNode = this.saveCharacter;
+        this.createPlayer();
+        this.createEnemy();
     }
 
     /**创建人物 */

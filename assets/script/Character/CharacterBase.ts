@@ -12,30 +12,48 @@ export default class CharacterBase {
     specialDefense = 0; //特殊防御
     speed = 0; // 速度
 
-    node:cc.Node = null;
-
-    
+    node: cc.Node = null;
 
     /**
      * 构造函数
      * @param Id 
      * @param CharacterId 
      */
-    constructor(Id:number, characterId:number) {
+    constructor(Id: number, characterId: number) {
         this.Id = Id;
         this.characterId = characterId;
-        this.createCharater();
     }
 
-    /**创建人物 */
-    createCharater(){
-        sanka.loader.loadRes("",(cell)=>{
-            this.node = cell;
+    /**
+     * 创建人物
+     * @param url 路径 
+     */
+    createCharater(url: string, array) {
+        sanka.loader.loadRes(`prefabs/${url}`, (cell) => {
+            this.node = cc.instantiate(cell);
+            this.node.getComponent(this.node.name).init(this);
+            if (sanka.character.saveCharacterNode) {
+                sanka.character.saveCharacterNode.addChild(this.node);
+            } else {
+                console.error("没得父节点");
+            }
+
+            this.setStatus(array);
         });
     }
 
+    /**
+     * 设置玩家位置 大小
+     * @param array { v2, scale }
+     */
+    setStatus(array: { v2, scale, zIndex }) {
+        this.node.position = array.v2;
+        this.node.scale = array.scale;
+        this.node.zIndex = array.zIndex;
+    }
+
     /**设置基础属性 */
-    setAttribute(){
-        
+    setAttribute() {
+
     }
 }

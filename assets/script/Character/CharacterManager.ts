@@ -1,6 +1,5 @@
 import Enemy from "./Enemy";
 import Player from "./Player";
-
 /**
  * 角色管理器
  */
@@ -15,6 +14,9 @@ export default class CharacterManager {
     choosePlayerId = null;
 
     chooseEnemyId = null;
+
+    /**存放角色节点*/
+    saveCharacterNode: cc.Node = null;
 
     /**
      * 压入角色
@@ -87,6 +89,11 @@ export default class CharacterManager {
     resetChoose() {
         this.choosePlayerId = null;
         this.chooseEnemyId = null;
+    }
+
+    /**设置存放点 */
+    set saveNode(node: cc.Node) {
+        this.saveCharacterNode = node;
     }
 
 
