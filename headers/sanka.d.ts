@@ -142,6 +142,13 @@ declare module sanka {
         /**批量销毁资源 */
         public destroyAll()
 
+        /**
+         * 加载预制体
+         * @param url 路径
+         * @param completeCallback 完成回调 
+         * @param data 初始化数据
+         */
+        public loadPrefabRes(url: string, completeCallback?: Function, data?: any)
     }
 
     export class SceneManager {
@@ -334,6 +341,12 @@ declare class CharacterManager {
 
     /**移除选择 */
     resetChoose();
+
+    /**设置存放点 */
+    set saveNode(node: cc.Node);
+
+    /**存放角色节点*/
+    saveCharacterNode: cc.Node;
 }
 
 /**声音管理 */

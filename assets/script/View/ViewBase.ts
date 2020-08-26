@@ -23,10 +23,13 @@ export default class ViewBase extends BaseComponent {
 
     onLoad() {
         sanka.view.newView(this.node, this.zIndex, this.isAddPersistRoot, this.isFull);
+        this.setNodeWidget();
     }
 
     onEnable() {
-        this.startAnimation();
+        if (this.isPlayAnimation) {
+            this.startAnimation();
+        }
     }
 
     onDisable() {
@@ -63,6 +66,14 @@ export default class ViewBase extends BaseComponent {
         this.node.stopAllActions();
         this.node.scale = 0;
         this.node.runAction(action);
+    }
+
+    /**
+     * 初始化数据
+     * @param data 数据流 
+     */
+    init(data){
+
     }
 
 }

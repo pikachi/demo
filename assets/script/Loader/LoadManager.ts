@@ -163,4 +163,18 @@ export default class LoadManager {
 
     }
 
+    /**
+     * 加载预制体
+     * @param url 路径
+     * @param completeCallback 完成回调 
+     * @param data 初始化数据
+     */
+    public loadPrefabRes(url: string, completeCallback?: Function, data?: any) {
+        this.loadRes(`prefabs/${url}`, (asset) => {
+            let cell: cc.Node = cc.instantiate(asset);
+            cell.getComponent(cell.name).init(data);
+            completeCallback && completeCallback(cell);
+        })
+    }
+
 }
