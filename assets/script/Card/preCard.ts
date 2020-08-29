@@ -1,22 +1,25 @@
 import BaseComponent from "../Component/BaseComponent";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class preCard extends BaseComponent {
 
-    onLoad(){
-        this.node.on("touchmove",this.touchMoveEvent.bind(this),this);
-        this.node.on("mouseleave",this.touchMoveEvent.bind(this),this);
-        
+    index: number = 0
+    skillId: number = 0;
+    onLoad() {
+        this.node.on("touchmove", this.touchMoveEvent.bind(this), this);
+        this.node.on("mouseleave", this.touchMoveEvent.bind(this), this);
+
     }
 
-    
-    init(skillId){
-        
+
+    init(index: number, skillId: number) {
+        this.index = index;
+        this.skillId = skillId;
     }
 
-    start () {
+    start() {
 
     }
 

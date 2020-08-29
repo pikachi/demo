@@ -46,9 +46,11 @@ export default class CombatView extends ViewBase {
         this.saveCard.on(cc.Node.EventType.MOUSE_LEAVE, this.touchLeaveEvent.bind(this), this);
     }
 
-    touchMoveEvent(e) {
+    touchMoveEvent(e: cc.Event) {
         super.touchMoveEvent(e);
-        console.log(e);
+        let node: cc.Node = e.target;
+        let index = node.getComponent(node.name).index
+        console.log(index);
     }
 
     /**创建卡牌 */
@@ -67,5 +69,12 @@ export default class CombatView extends ViewBase {
             this.saveCard.width = sanka.skill.skillPool.length * 130 + 70;
             sanka.skill.updateCardPos()
         })
+    }
+
+    updateCardPos(index) {
+        let length = sanka.skill.getSkillPool;
+        for (let i = 0; i < length; i++) {
+
+        }
     }
 }

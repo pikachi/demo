@@ -257,6 +257,9 @@ declare class TimeManager {
 
 /**技能管理 */
 declare class SkillManger {
+
+    /**技能池 */
+    skillPool: Array<cc.Node>;
     /**
      * 攻击敌人 
      * @param attack  攻击方
@@ -299,6 +302,9 @@ declare class SkillManger {
     updateCardPos()
 
     createCard();
+
+    /**获取技能池长度 */
+    get getSkillPool()
 }
 
 /**人物管理 */

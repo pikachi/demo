@@ -88,7 +88,7 @@ export default class SkillManger {
             index = this.skillPool.length
         }
         this.skillPool[index] = node;
-        node.getComponent(node.name).init(skillId);
+        node.getComponent(node.name).init(index,skillId);
     }
 
     /**隐藏技能 */
@@ -103,10 +103,8 @@ export default class SkillManger {
         let length = this.skillPool.length;
         //取出中间值
         let width = length * 130 - 70;
-        console.log(width)
         for (let i = 0; i < length; i++) {
             this.skillPool[i].x = -width / 2 + i * 130;
-            console.log(-width / 2 + i * 130)
         }
     }
 
@@ -123,6 +121,11 @@ export default class SkillManger {
         sanka.loader.loadRes("prefabs/preCard", async (asset) => {
             this.cardNode = asset;
         })
+    }
+
+    /**获取技能池长度 */
+    get getSkillPool(){
+        return this.skillPool.length
     }
 
 }
