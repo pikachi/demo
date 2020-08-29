@@ -41,10 +41,16 @@ export default class BaseComponent extends cc.Component {
 
     }
 
+    /**触摸移出事件 */
+    touchLeaveEvent(e) {
+
+    }
+
     onDestroy() {
         this.node.off("touchend");
         this.node.off("touchstart");
         this.node.off("touchmove");
+        this.node.off("mouseleave");
         sanka.event.offListenAll(this);
         sanka.event.offListens(this);
         sanka.time.clearAllSchedule(this);

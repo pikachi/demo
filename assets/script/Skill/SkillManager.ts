@@ -4,13 +4,14 @@
  * 所有技能通过该管理器处理
  */
 export default class SkillManger {
-
     chooseSkillId = [];
-
     /**技能池 */
-    skillPool = {};
-
+    skillPool = Array<cc.Node>();
     lastChossSkill = [];
+    saveSkill = [];
+    cardNode: cc.Node = null;
+    constructor() {
+    }
 
 
     /**
@@ -29,8 +30,8 @@ export default class SkillManger {
      * @param defense  防御方
      */
     attackEnemy(attack: cc.Node, defense: cc.Node) {
-        defense.getChildByName("hp").getComponent(cc.Label).string = "hp" + (Number(111) - 10).toString();
-        this.resetChooseSkill();
+        // defense.getComponent(defense.name).
+        // this.resetChooseSkill();
     }
 
     /**
@@ -69,30 +70,59 @@ export default class SkillManger {
     }
 
     resetChooseSkill() {
-        for(let i = 0;i<this.chooseSkillId.length;i++){
+        for (let i = 0; i < this.chooseSkillId.length; i++) {
             let value = this.chooseSkillId[i];
             this.lastChossSkill[i] = value;
         }
         this.chooseSkillId.length = 0
     }
 
-    setSkill(skillId, node: cc.Node) {
-        this.skillPool[skillId] = node;
+    /**
+     * 导入技能池
+     * @param index 索引
+     * @param node 卡牌
+     * @param skillId 技能id
+     */
+    setSkill(index: number, node: cc.Node, skillId: number) {
+        if (!index || index < 0) {
+            index = this.skillPool.length
+        }
+        this.skillPool[index] = node;
+        node.getComponent(node.name).init(skillId);
     }
 
     /**隐藏技能 */
-    hideSKill(){
-        for(let key in this.chooseSkillId){
+    hideSKill() {
+        for (let key in this.chooseSkillId) {
             this.skillPool[this.chooseSkillId[key]].active = false;
         }
     }
 
-    /**返回 */
-    returnSkill(){
-        if(this.lastChossSkill.length != 0){
-            for(let key in this.lastChossSkill){
-                this.skillPool[this.lastChossSkill[key]].active = true;
-            }   
+    /**更新卡牌位置 */
+    updateCardPos() {
+        let length = this.skillPool.length;
+        //取出中间值
+        let width = length * 130 - 70;
+        console.log(width)
+        for (let i = 0; i < length; i++) {
+            this.skillPool[i].x = -width / 2 + i * 130;
+            console.log(-width / 2 + i * 130)
         }
     }
+
+    /**返回 */
+    returnSkill() {
+        if (this.lastChossSkill.length != 0) {
+            for (let key in this.lastChossSkill) {
+                this.skillPool[this.lastChossSkill[key]].active = true;
+            }
+        }
+    }
+
+    createCard() {
+        sanka.loader.loadRes("prefabs/preCard", async (asset) => {
+            this.cardNode = asset;
+        })
+    }
+
 }
