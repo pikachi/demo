@@ -1,5 +1,7 @@
+import BaseComponent from "../Component/BaseComponent";
+
 /**人物基类 */
-export default class CharacterBase {
+export default class CharacterBase extends BaseComponent {
     /**玩家id */
     Id: number = 0;
     characterId: number = null;
@@ -13,33 +15,16 @@ export default class CharacterBase {
     speed = 0; // 速度
 
     node: cc.Node = null;
-
+    onLoad() {
+    }
     /**
-     * 构造函数
+     * 初始化
      * @param Id 
      * @param CharacterId 
      */
-    constructor(Id: number, characterId: number) {
+    init(Id: number, characterId: number) {
         this.Id = Id;
         this.characterId = characterId;
-    }
-
-    /**
-     * 创建人物
-     * @param url 路径 
-     */
-    createCharater(url: string, array) {
-        sanka.loader.loadRes(`prefabs/${url}`, (cell) => {
-            this.node = cc.instantiate(cell);
-            this.node.getComponent(this.node.name).init(this);
-            if (sanka.character.saveCharacterNode) {
-                sanka.character.saveCharacterNode.addChild(this.node);
-            } else {
-                console.error("没得父节点");
-            }
-
-            this.setStatus(array);
-        });
     }
 
     /**

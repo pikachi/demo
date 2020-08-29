@@ -268,10 +268,7 @@ declare class SkillManger {
      * 增益效果
      * @param playerId 受益方
      */
-    buffStatc(playerId) {
-
-    }
-
+    buffStatc(playerId)
 
     /**
      * 被选中的技能
@@ -290,13 +287,18 @@ declare class SkillManger {
      * @param skillId 技能id
      * @param node 技能卡
      */
-    setSkill(skillId, node: cc.Node);
+    setSkill(index: number, node: cc.Node, skillId: number);
 
     /**隐藏技能 */
     hideSKill();
 
     /**返回 */
-    returnSkill()
+    returnSkill();
+
+    /**更新卡牌位置 */
+    updateCardPos()
+
+    createCard();
 }
 
 /**人物管理 */

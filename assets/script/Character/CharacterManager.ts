@@ -1,5 +1,7 @@
-import Enemy from "./Enemy";
-import Player from "./Player";
+import prePlayer from "./prePlayer";
+import preEnemy from "./preEnemy";
+import { enemyPos } from "../Config";
+
 /**
  * 角色管理器
  */
@@ -23,7 +25,7 @@ export default class CharacterManager {
      * @param playerId 玩家Id
      * @param node 玩家节点
      */
-    public setPlayer(playerId: any, player: Player) {
+    public setPlayer(playerId: any, player: prePlayer) {
         this.playerPool[playerId] = player;
     }
 
@@ -32,7 +34,7 @@ export default class CharacterManager {
      * @param enemyId 敌人Id
      * @param node 敌人节点
      */
-    setEnemy(enemyId: any, enemy: Enemy) {
+    setEnemy(enemyId: any, enemy: preEnemy) {
         this.enemyPool[enemyId] = enemy;
     }
 
@@ -42,9 +44,28 @@ export default class CharacterManager {
      */
     creatEnemy(enemyArr: Array<number>) {
         for (let i = 0, l = enemyArr.length; i < l; i++) {
-            let tempEnemy = new Enemy(i, enemyArr[i])
-            this.setEnemy(i, tempEnemy)
+            this.createCharater(i, "preEnemy", enemyArr[i]);
         }
+    }
+
+    /**
+     * 创建人物
+     * @param index 索引
+     * @param url 
+     * @param array 
+     */
+    createCharater(index, url: string, array) {
+        sanka.loader.loadRes(`prefabs/${url}`, (cell) => {
+            let node: cc.Node = cc.instantiate(cell);
+            let nodeJs = node.getComponent(node.name)
+            nodeJs.init(index, array);
+            this.setEnemy(index, nodeJs);
+            if (sanka.character.saveCharacterNode) {
+                sanka.character.saveCharacterNode.addChild(node);
+            } else {
+                console.error("没得父节点");
+            }
+        });
     }
 
     /**
@@ -58,9 +79,9 @@ export default class CharacterManager {
         if (playerArr.length == 0) {
             return;
         }
+
         for (let i = 0, l = playerArr.length; i < l; i++) {
-            let tempPlayer = new Player(i, playerArr[i])
-            this.setPlayer(i, tempPlayer)
+            this.createCharater(i, "prePlayer", playerArr[i]);
         }
     }
 
