@@ -298,13 +298,10 @@ declare class SkillManger {
     /**返回 */
     returnSkill();
 
-    /**更新卡牌位置 */
-    updateCardPos()
-
-    createCard();
-
     /**获取技能池长度 */
     get getSkillPool()
+
+    getSkillWidth()
 }
 
 /**人物管理 */

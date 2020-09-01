@@ -1,4 +1,5 @@
 import ViewBase from "../View/ViewBase";
+import { CommonEventName } from "../Util/EventName";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,13 +15,20 @@ export default class CombatView extends ViewBase {
     @property(cc.Node)
     saveCard: cc.Node = null;
 
+    /**缓存预制体 */
+    cardNode: cc.Node = null;
+
+    mouseStaus = true;
+
     onLoad() {
         super.onLoad();
         this.initTouchEvent();
+        this.initEvent();
     }
 
     initEvent() {
-
+        sanka.event.on(CommonEventName.START_ALL_MOUSE_EVENT,this,this.mouseEvent);
+        sanka.event.on(CommonEventName.STOP_ALL_MOUSE_EVENT,this,this.mouseEvent);
     }
 
     init(data) {
@@ -48,33 +56,77 @@ export default class CombatView extends ViewBase {
 
     touchMoveEvent(e: cc.Event) {
         super.touchMoveEvent(e);
+        console.log(e);
+        if(!this.mouseStaus)return;
         let node: cc.Node = e.target;
-        let index = node.getComponent(node.name).index
-        console.log(index);
+        let index = node.getComponent(node.name) ? node.getComponent(node.name).index : null;
+        this.updateCardPos(index);
+    }
+
+    touchLeaveEvent(e) {
+        if(!this.mouseStaus)return; 
+        this.updateCardPos();
+    }
+
+    /**
+     * 鼠标状态
+     * @param data 
+     */
+    mouseEvent(data){
+        console.log(data);
+        this.mouseStaus = data.mouseStaus;
     }
 
     /**创建卡牌 */
     createCard(cardList: Array<number> | number) {
-        sanka.loader.loadRes("prefabs/preCard", async (asset) => {
+        let func = (asset) => {
             if (cardList instanceof Array) {
                 for (let i = 0; i < cardList.length; i++) {
-                    let cell = cc.instantiate(asset)
+                    let cell: cc.Node = cc.instantiate(asset)
                     this.saveCard.addChild(cell);
                     sanka.skill.setSkill(i, cell, cardList[i]);
+                    sanka.time.addScheduleOnce(`flyTime${i}`, () => {
+                        cell.getComponent(cell.name).flyToCtrlConsole();
+                    }, 0.1 * i, this)
                 }
             } else {
                 let cell = cc.instantiate(asset)
-                sanka.skill.setSkill(null, cell, cardList)
+                sanka.skill.setSkill(null, cell, cardList);
             }
-            this.saveCard.width = sanka.skill.skillPool.length * 130 + 70;
-            sanka.skill.updateCardPos()
+            this.saveCard.width = sanka.skill.skillPool.length * 130 + 200;
+            // this.updateCardPos();
+        }
+        if (this.cardNode) {
+            func(this.cardNode);
+            return
+        }
+        sanka.loader.loadRes("prefabs/preCard", async (asset) => {
+            func(asset);
         })
+
     }
-
-    updateCardPos(index) {
+    /**
+     * 更新卡牌位置
+     * @param index 
+     */
+    updateCardPos(index?) {
+        let skillPool = sanka.skill.skillPool;
         let length = sanka.skill.getSkillPool;
-        for (let i = 0; i < length; i++) {
-
+        let width = length * 130 - 70;
+        if (index != null) {
+            for (let i = 0; i < length; i++) {
+                if (skillPool[i]) {
+                    if (i <= index) {
+                        skillPool[i].x = -width / 2 + i * 130;
+                    } else {
+                        skillPool[i].x = -width / 2 + i * 130 + 70;
+                    }
+                }
+            }
+        } else {
+            for (let i = 0; i < length; i++) {
+                skillPool[i].x = -width / 2 + i * 130;
+            }
         }
     }
 }

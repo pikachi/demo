@@ -12,4 +12,14 @@ export const NetEventName = {
     NET_CLOSE: "net.close",
     /**网络连接事件 */
     NET_CONNECT: "net.connect",
+
+
+
+}
+
+export const CommonEventName = {
+    /**激活鼠标事件 */
+    START_ALL_MOUSE_EVENT: "startAllMouseEvent",
+    /**关闭鼠标事件 */
+    STOP_ALL_MOUSE_EVENT: "stopAllMouseEvent",
 }

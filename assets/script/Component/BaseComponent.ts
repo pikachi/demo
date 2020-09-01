@@ -27,6 +27,14 @@ export default class BaseComponent extends cc.Component {
         }
     }
 
+    /**初始化触摸 */
+    initTouchEvent(){
+        this.node.on("touchstart", this.touchStartEvent.bind(this), this);
+        this.node.on("touchmove", this.touchMoveEvent.bind(this), this);
+        this.node.on("touchend", this.touchEndEvent.bind(this), this);
+    }
+
+
     /**触摸结束事件 */
     touchEndEvent(e) {
     }
@@ -57,16 +65,16 @@ export default class BaseComponent extends cc.Component {
     }
 
     /**获取节点世界坐标 */
-    getNodeWorldPos(): cc.Vec2 {
-        return this.node.convertToWorldSpaceAR(new cc.Vec2(0, 0))
+    getNodeWorldPos(pos?: cc.Vec2): cc.Vec2 {
+        return this.node.parent.convertToWorldSpaceAR(pos || new cc.Vec2(0, 0))
     }
 
     /**
      * 子节点转换世界坐标
      * @param node 子节点
      */
-    getChildNodePos(node: cc.Node) {
-        return this.node.convertToNodeSpaceAR(this.node.position);
+    getChildNodePos() {
+        return this.node.convertToWorldSpaceAR(this.node.position);
     }
 
     /**获取节点相对坐标 */

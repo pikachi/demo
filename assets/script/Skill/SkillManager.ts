@@ -9,7 +9,6 @@ export default class SkillManger {
     skillPool = Array<cc.Node>();
     lastChossSkill = [];
     saveSkill = [];
-    cardNode: cc.Node = null;
     constructor() {
     }
 
@@ -88,7 +87,7 @@ export default class SkillManger {
             index = this.skillPool.length
         }
         this.skillPool[index] = node;
-        node.getComponent(node.name).init(index,skillId);
+        node.getComponent(node.name).init(index, skillId);
     }
 
     /**隐藏技能 */
@@ -98,15 +97,6 @@ export default class SkillManger {
         }
     }
 
-    /**更新卡牌位置 */
-    updateCardPos() {
-        let length = this.skillPool.length;
-        //取出中间值
-        let width = length * 130 - 70;
-        for (let i = 0; i < length; i++) {
-            this.skillPool[i].x = -width / 2 + i * 130;
-        }
-    }
 
     /**返回 */
     returnSkill() {
@@ -117,15 +107,13 @@ export default class SkillManger {
         }
     }
 
-    createCard() {
-        sanka.loader.loadRes("prefabs/preCard", async (asset) => {
-            this.cardNode = asset;
-        })
+    /**获取技能池长度 */
+    get getSkillPool() {
+        return this.skillPool.length
     }
 
-    /**获取技能池长度 */
-    get getSkillPool(){
-        return this.skillPool.length
+    getSkillWidth() {
+        return this.getSkillPool * 130 - 70;
     }
 
 }

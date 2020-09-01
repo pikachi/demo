@@ -64,7 +64,7 @@ export default class Handler {
     }
 
     /**执行处理器 */
-    runwith(..._data) {
+    runwith(_data) {
         if (!this.caller) return;
         if (!this.arg) this.arg = _data;
         else this.arg.concat(_data);

@@ -45,19 +45,19 @@ export default class TimeManager {
             console.log("不存在owner", owner)
             return;
         }
+        let timeOwner = this.timePool[owner];
         let timer = setTimeout(() => {
             func();
-            this.clearSchedule(timeOwner[timeName], owner);
+            this.clearSchedule(timeName, owner);
         }, time * 1000);
-        let timeOwner = this.timePool[owner];
         if (!timeOwner) {
-            timeOwner = {}
-            timeOwner[timeName] = timer;
+            this.timePool[owner] = {}
+            this.timePool[owner][timeName] = timer;
         } else {
             if (timeOwner[timeName]) {
-                this.clearSchedule(timeOwner[timeName], owner);
+                this.clearSchedule(timeName, owner);
             }
-            timeOwner[timeName] = timer;
+            this.timePool[owner][timeName] = timer;
         }
     }
 
@@ -68,7 +68,7 @@ export default class TimeManager {
      */
     clearSchedule(timeName: any, owner) {
         if (!timeName || typeof timeName != "string") {
-            console.log("名字不对哦")
+            console.log("名字不对哦", this.timePool);
             return;
         }
         if (!owner) {
