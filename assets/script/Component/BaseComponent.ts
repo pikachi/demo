@@ -1,6 +1,5 @@
 /**组件基类 */
 export default class BaseComponent extends cc.Component {
-
     isHadChild: boolean = false;
 
     /**
@@ -35,6 +34,7 @@ export default class BaseComponent extends cc.Component {
     }
 
 
+
     /**触摸结束事件 */
     touchEndEvent(e) {
     }
@@ -51,6 +51,15 @@ export default class BaseComponent extends cc.Component {
 
     /**触摸移出事件 */
     touchLeaveEvent(e) {
+
+    }
+
+    /**鼠标移动事件 */
+    mouseMoveEvent(e){
+
+    }
+    /**鼠标移出事件 */
+    mouseLeaveEvent(e){
 
     }
 

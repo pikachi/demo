@@ -115,9 +115,7 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true,
-    "label": null,
-    "text": "hello",
+    "_enabled": false,
     "_id": ""
   },
   {
@@ -126,7 +124,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9e06f743-af08-419e-b599-8614e25be969"
     },
     "fileId": "f7jSSn3bZM4qBGZqolM6yV",
     "sync": false

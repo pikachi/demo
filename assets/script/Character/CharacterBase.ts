@@ -16,6 +16,7 @@ export default class CharacterBase extends BaseComponent {
 
     node: cc.Node = null;
     onLoad() {
+        this.initTouchEvent();
     }
     /**
      * 初始化
@@ -40,5 +41,9 @@ export default class CharacterBase extends BaseComponent {
     /**设置基础属性 */
     setAttribute() {
 
+    }
+
+    touchStartEvent(e){
+        console.log(e);
     }
 }

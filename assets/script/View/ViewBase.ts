@@ -56,7 +56,7 @@ export default class ViewBase extends BaseComponent {
 
     /**设置不可穿透 */
     setNoInputEvent() {
-        this.node.on("touchend", this.touchEndEvent, this);
+        // this.node.on("touchend", this.touchEndEvent, this);
     }
 
 

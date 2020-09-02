@@ -22,4 +22,6 @@ export const CommonEventName = {
     START_ALL_MOUSE_EVENT: "startAllMouseEvent",
     /**关闭鼠标事件 */
     STOP_ALL_MOUSE_EVENT: "stopAllMouseEvent",
+    /**键盘点击事件 */
+    KEYBOARD_CLICK_EVENT: "keyboardclickevent",
 }

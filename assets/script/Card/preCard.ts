@@ -9,22 +9,26 @@ export default class preCard extends BaseComponent {
     index: number = 0
     skillId: number = 0;
     onLoad() {
-        // this.initTouchEvent();
+        this.initTouchEvent();
     }
-
-
 
     init(index: number, skillId: number) {
         this.index = index;
         this.skillId = skillId;
     }
 
-    start() {
-
+    initTouchEvent() {
+        super.initTouchEvent();
+        this.node.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
     }
 
     touchStartEvent(e) {
         sanka.event.emit(CommonEventName.STOP_ALL_MOUSE_EVENT, { mouseStaus: false });
+        if (this.node.y != 0) {
+            this.node.y = 0;
+        } else {
+            this.node.y = 20;
+        }
     }
 
     touchEndEvent(e) {

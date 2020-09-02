@@ -15,20 +15,26 @@ export default class CombatView extends ViewBase {
     @property(cc.Node)
     saveCard: cc.Node = null;
 
+    @property(cc.Node)
+    preCard: cc.Node = null;
+
     /**缓存预制体 */
     cardNode: cc.Node = null;
 
     mouseStaus = true;
 
+    cliskShift = false;
+
     onLoad() {
         super.onLoad();
-        this.initTouchEvent();
         this.initEvent();
+        this.initTouchEvent();
     }
 
     initEvent() {
-        sanka.event.on(CommonEventName.START_ALL_MOUSE_EVENT,this,this.mouseEvent);
-        sanka.event.on(CommonEventName.STOP_ALL_MOUSE_EVENT,this,this.mouseEvent);
+        sanka.event.on(CommonEventName.START_ALL_MOUSE_EVENT, this, this.mouseEvent);
+        sanka.event.on(CommonEventName.STOP_ALL_MOUSE_EVENT, this, this.mouseEvent);
+        sanka.event.on(CommonEventName.KEYBOARD_CLICK_EVENT, this, this.keyboardEvent);
     }
 
     init(data) {
@@ -50,21 +56,21 @@ export default class CombatView extends ViewBase {
     }
 
     initTouchEvent() {
-        this.saveCard.on(cc.Node.EventType.MOUSE_MOVE, this.touchMoveEvent.bind(this), this);
-        this.saveCard.on(cc.Node.EventType.MOUSE_LEAVE, this.touchLeaveEvent.bind(this), this);
+        this.saveCard.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
+        this.saveCard.on(cc.Node.EventType.MOUSE_LEAVE, this.mouseLeaveEvent.bind(this), this);
     }
 
-    touchMoveEvent(e: cc.Event) {
-        super.touchMoveEvent(e);
-        console.log(e);
-        if(!this.mouseStaus)return;
+    mouseMoveEvent(e: cc.Event) {
+        super.mouseMoveEvent(e);
+        if (!this.mouseStaus) return;
+        if (this.cliskShift) return;
         let node: cc.Node = e.target;
         let index = node.getComponent(node.name) ? node.getComponent(node.name).index : null;
         this.updateCardPos(index);
     }
 
     touchLeaveEvent(e) {
-        if(!this.mouseStaus)return; 
+        if (!this.mouseStaus) return;
         this.updateCardPos();
     }
 
@@ -72,9 +78,18 @@ export default class CombatView extends ViewBase {
      * 鼠标状态
      * @param data 
      */
-    mouseEvent(data){
-        console.log(data);
+    mouseEvent(data) {
         this.mouseStaus = data.mouseStaus;
+    }
+
+    keyboardEvent(data) {
+        for (let key in data) {
+            if (data[key] == "shift") {
+                this.cliskShift = true
+                return;
+            }
+        }
+        this.cliskShift = false;
     }
 
     /**创建卡牌 */
@@ -85,26 +100,27 @@ export default class CombatView extends ViewBase {
                     let cell: cc.Node = cc.instantiate(asset)
                     this.saveCard.addChild(cell);
                     sanka.skill.setSkill(i, cell, cardList[i]);
-                    sanka.time.addScheduleOnce(`flyTime${i}`, () => {
-                        cell.getComponent(cell.name).flyToCtrlConsole();
-                    }, 0.1 * i, this)
+                    // sanka.time.addScheduleOnce(`flyTime${i}`, () => {
+                    //     cell.getComponent(cell.name).flyToCtrlConsole();
+                    // }, 0.1 * i, this)
                 }
             } else {
                 let cell = cc.instantiate(asset)
                 sanka.skill.setSkill(null, cell, cardList);
             }
             this.saveCard.width = sanka.skill.skillPool.length * 130 + 200;
-            // this.updateCardPos();
+            this.updateCardPos();
         }
         if (this.cardNode) {
             func(this.cardNode);
-            return
+            return;
         }
         sanka.loader.loadRes("prefabs/preCard", async (asset) => {
             func(asset);
         })
 
     }
+
     /**
      * 更新卡牌位置
      * @param index 
