@@ -23,16 +23,16 @@ export default class preCard extends BaseComponent {
     }
 
     touchStartEvent(e) {
-        sanka.event.emit(CommonEventName.STOP_ALL_MOUSE_EVENT, { mouseStaus: false });
-        if (this.node.y != 0) {
-            this.node.y = 0;
-        } else {
-            this.node.y = 20;
-        }
+        // sanka.event.emit(CommonEventName.STOP_ALL_MOUSE_EVENT, { mouseStaus: false });
+        // if (this.node.y != 0) {
+        //     this.node.y = 0;
+        // } else {
+        //     this.node.y = 20;
+        // }
     }
 
     touchEndEvent(e) {
-        sanka.event.emit(CommonEventName.START_ALL_MOUSE_EVENT, { mouseStaus: true });
+        // sanka.event.emit(CommonEventName.START_ALL_MOUSE_EVENT, { mouseStaus: true });
     }
 
     /**

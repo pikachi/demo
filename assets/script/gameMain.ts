@@ -28,7 +28,6 @@ export default class gameMain extends BaseComponent {
     }
 
     keyInputDownEvent(e: KeyboardEvent) {
-        // if(e.keyCode == )
         for (let key in cc.macro.KEY) {
             let data: number = Number(cc.macro.KEY[key]);
             if (data == e.keyCode) {

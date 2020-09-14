@@ -35,7 +35,7 @@ export default class EventManager {
             return;
         }
         if (!EventManager.eventPool[_eventName]) {
-            console.log("莫得注册事件")
+            console.log("莫得注册事件",_eventName)
             return;
         } else {
             eventList = EventManager.eventPool[_eventName];
@@ -88,7 +88,7 @@ export default class EventManager {
     off(_eventName: string, _owner: any, _caller: Function = null): EventManager {
         let event: Handler[] = EventManager.eventPool[_eventName];
         if (!event) {
-            console.log("莫得事件")
+            console.log("莫得事件",_eventName)
             return;
         }
         for (let i = 0; i < event.length; i++) {
@@ -159,7 +159,7 @@ export default class EventManager {
      */
     emitListens(_eventName: string, ..._data: any) {
         if (!_eventName) {
-            console.log("莫得事件名")
+            console.log("莫得事件名",_eventName)
             return;
         }
         for (let key in EventManager.listenPool) {

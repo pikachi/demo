@@ -23,7 +23,10 @@ export default class CombatView extends ViewBase {
 
     mouseStaus = true;
 
-    cliskShift = false;
+    clickShift = false;
+
+    // 点击位置
+    clickCardPos = null;
 
     onLoad() {
         super.onLoad();
@@ -32,8 +35,6 @@ export default class CombatView extends ViewBase {
     }
 
     initEvent() {
-        sanka.event.on(CommonEventName.START_ALL_MOUSE_EVENT, this, this.mouseEvent);
-        sanka.event.on(CommonEventName.STOP_ALL_MOUSE_EVENT, this, this.mouseEvent);
         sanka.event.on(CommonEventName.KEYBOARD_CLICK_EVENT, this, this.keyboardEvent);
     }
 
@@ -58,12 +59,15 @@ export default class CombatView extends ViewBase {
     initTouchEvent() {
         this.saveCard.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
         this.saveCard.on(cc.Node.EventType.MOUSE_LEAVE, this.mouseLeaveEvent.bind(this), this);
+        this.saveCard.on(cc.Node.EventType.TOUCH_START, this.touchStartEvent.bind(this), this);
+        this.saveCard.on(cc.Node.EventType.TOUCH_MOVE, this.touchMoveEvent.bind(this), this);
+        this.saveCard.on(cc.Node.EventType.TOUCH_END, this.touchEndEvent.bind(this), this);
     }
 
     mouseMoveEvent(e: cc.Event) {
         super.mouseMoveEvent(e);
         if (!this.mouseStaus) return;
-        if (this.cliskShift) return;
+        if (this.clickShift) return;
         let node: cc.Node = e.target;
         let index = node.getComponent(node.name) ? node.getComponent(node.name).index : null;
         this.updateCardPos(index);
@@ -74,22 +78,32 @@ export default class CombatView extends ViewBase {
         this.updateCardPos();
     }
 
-    /**
-     * 鼠标状态
-     * @param data 
-     */
-    mouseEvent(data) {
-        this.mouseStaus = data.mouseStaus;
-    }
-
     keyboardEvent(data) {
         for (let key in data) {
             if (data[key] == "shift") {
-                this.cliskShift = true
+                this.clickShift = true
                 return;
             }
         }
-        this.cliskShift = false;
+        this.clickShift = false;
+    }
+
+    touchStartEvent(e: cc.Event.EventTouch) {
+        this.mouseStaus = false;
+        this.clickCardPos = e.getLocation();
+        let node:cc.Node = e.target
+        cc.log("start--->", this.clickCardPos,node.position);
+    }
+
+    touchEndEvent(e: cc.Event) {
+        this.mouseStaus = true;
+        let node: cc.Node = e.currentTarget;
+        // cc.log("end--->", index);
+    }
+
+    touchMoveEvent(e: cc.Event) {
+        this.mouseStaus = false;
+        // cc.log("move--->",index);
     }
 
     /**创建卡牌 */
