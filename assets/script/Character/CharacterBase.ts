@@ -13,7 +13,7 @@ export default class CharacterBase extends BaseComponent {
     specialAttack = 0; // 特殊攻击
     specialDefense = 0; //特殊防御
     speed = 0; // 速度
-
+    buffSatus = {}; // buff状态
     node: cc.Node = null;
     onLoad() {
         this.initTouchEvent();

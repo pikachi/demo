@@ -27,7 +27,7 @@ export default class BaseComponent extends cc.Component {
     }
 
     /**初始化触摸 */
-    initTouchEvent(){
+    initTouchEvent() {
         this.node.on("touchstart", this.touchStartEvent.bind(this), this);
         this.node.on("touchmove", this.touchMoveEvent.bind(this), this);
         this.node.on("touchend", this.touchEndEvent.bind(this), this);
@@ -55,11 +55,11 @@ export default class BaseComponent extends cc.Component {
     }
 
     /**鼠标移动事件 */
-    mouseMoveEvent(e){
+    mouseMoveEvent(e) {
 
     }
     /**鼠标移出事件 */
-    mouseLeaveEvent(e){
+    mouseLeaveEvent(e) {
 
     }
 
@@ -91,5 +91,12 @@ export default class BaseComponent extends cc.Component {
         return this.node.convertToNodeSpaceAR(pos);
     }
 
+    /**
+     * 设置透明度
+     * @param num 数值 
+     */
+    setOpacity(num: number) {
+        this.node.opacity = num;
+    }
 
 } 

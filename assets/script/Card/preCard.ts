@@ -1,5 +1,4 @@
 import BaseComponent from "../Component/BaseComponent";
-import { CommonEventName } from "../Util/EventName";
 
 const { ccclass, property } = cc._decorator;
 
@@ -22,18 +21,6 @@ export default class preCard extends BaseComponent {
         this.node.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
     }
 
-    touchStartEvent(e) {
-        // sanka.event.emit(CommonEventName.STOP_ALL_MOUSE_EVENT, { mouseStaus: false });
-        // if (this.node.y != 0) {
-        //     this.node.y = 0;
-        // } else {
-        //     this.node.y = 20;
-        // }
-    }
-
-    touchEndEvent(e) {
-        // sanka.event.emit(CommonEventName.START_ALL_MOUSE_EVENT, { mouseStaus: true });
-    }
 
     /**
      * 飞往控制台
@@ -43,6 +30,7 @@ export default class preCard extends BaseComponent {
         let worldPos = cc.v2(1920, 540) || v2;
         let localPos = this.getNodeLocalPos(worldPos);
         this.node.setPosition(localPos);
+        this.setOpacity(255);
         let endX = -sanka.skill.getSkillWidth() / 2 + this.index * 130;
         this.flyAction(null, cc.v2(endX, 0));
     }
@@ -59,5 +47,8 @@ export default class preCard extends BaseComponent {
         this.node.runAction(action);
     }
 
+    showHight(isHight: boolean) {
+        this.node.x = isHight ? 20 : 0;
+    }
 
 }

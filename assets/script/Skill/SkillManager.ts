@@ -9,7 +9,9 @@ export default class SkillManger {
     skillPool = Array<cc.Node>();
     lastChossSkill = [];
     saveSkill = [];
+    
     constructor() {
+
     }
 
 
@@ -115,5 +117,4 @@ export default class SkillManger {
     getSkillWidth() {
         return this.getSkillPool * 130 - 70;
     }
-
 }

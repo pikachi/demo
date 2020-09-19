@@ -39,6 +39,27 @@ declare module sanka {
          * @param key 
          */
         static removeData(key);
+
+        /**
+         * 数组排列方式
+         * @param array 传入需要排列字段 可多个 
+         *@param  如["a"],["a","b"],默认从小到大排序
+         * @param 需要从大到小则传入true
+         *@param  如[["a",true]],[["a",true],["a",true]]
+         */
+        static sortFunc(array);
+
+        /**
+         * 数组去重
+         * @param arr 数组 
+         */
+        static deduplication(arr: []): Array<any>[];
+
+        /**
+         * 扁平化去重(多层嵌套数组)如：[1,[2,2]]
+         * @param arr 
+         */
+        static flattening(arr);
     }
 
     export class EventManager {
@@ -352,6 +373,12 @@ declare class CharacterManager {
 
     /**存放角色节点*/
     saveCharacterNode: cc.Node;
+
+    /**获取所有敌人 */
+    getAllEnemy()
+
+    /**获取所有玩家 */
+    getAllPlayer()
 }
 
 /**声音管理 */

@@ -147,15 +147,16 @@ export default class Util {
     /**
      * 数组排列方式
      * @param array 传入需要排列字段 可多个 
-     * 如["a"],["a","b"],默认从小到大排序
-     * 需要从大到小则传入true
-     * 如[["a",true]],[["a",true],["a",true]]
+     *@param  如["a"],["a","b"],默认从小到大排序
+     * @param 需要从大到小则传入true
+     *@param  如[["a",true]],[["a",true],["a",true]]
      */
-    sortFunc(array) {
+    static sortFunc(array) {
         return (front, next) => {
             let count = 0;
             let length = Object.keys(array).length;
             for (let key in array) {
+                count ++;
                 let temp = array[key];
                 let element = null;
                 let tempSort = null
@@ -166,11 +167,13 @@ export default class Util {
                     element = temp;
                 }
                 let frontValue = front[element] || 0;
-                let nextValue = front[element] || 0;
-                if (tempSort) {
-                    return nextValue - frontValue;
-                } else {
-                    return frontValue - nextValue;
+                let nextValue = next[element] || 0;
+                if(frontValue != nextValue||count == length){
+                    if (tempSort) {
+                        return nextValue - frontValue;
+                    } else {
+                        return frontValue - nextValue;
+                    }
                 }
             }
         }
@@ -180,7 +183,7 @@ export default class Util {
      * 数组去重
      * @param arr 数组 
      */
-    deduplication(arr: []): Array<any>[] {
+    static deduplication(arr: []): Array<any>[] {
         let newArr = new Set(arr);
         return Array.from(newArr);
     }
@@ -189,9 +192,17 @@ export default class Util {
      * 扁平化去重(多层嵌套数组)如：[1,[2,2]]
      * @param arr 
      */
-    flattening(arr){
+    static flattening(arr){
         return arr.reduce((pre, item)=>{
             return pre.concat(Array.isArray(item) ? this.flattening(item) : item);
         }, [])
     }
 }
+
+
+
+//12:00 集合
+//12:00-3；00 过去
+//3:00-4：00:卡丁车
+//4-7:00 
+//7：00以后烧烤

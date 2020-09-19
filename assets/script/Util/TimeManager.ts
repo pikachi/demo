@@ -37,7 +37,9 @@ export default class TimeManager {
      * @param time 时间 单位秒
      * @param owner 执行域
      */
-    addScheduleOnce(timeName: string, func: Function, time: number, owner) {
+    addScheduleOnce(timeName: string, func: Function, time: number = 0, owner) {
+        time = time || 0;
+        owner = owner || this;
         if (!timeName || typeof timeName != "string") {
             return;
         }

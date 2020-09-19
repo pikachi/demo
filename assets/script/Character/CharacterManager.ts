@@ -1,6 +1,5 @@
 import prePlayer from "./prePlayer";
 import preEnemy from "./preEnemy";
-import { enemyPos } from "../Config";
 
 /**
  * 角色管理器
@@ -117,6 +116,11 @@ export default class CharacterManager {
         this.saveCharacterNode = node;
     }
 
+    getAllEnemy(){
+        return this.enemyPool;
+    }
 
-    // update (dt) {}
+    getAllPlayer(){
+        return this.playerPool;
+    }
 }

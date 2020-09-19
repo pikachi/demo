@@ -57,7 +57,7 @@ export default class CombatView extends ViewBase {
     }
 
     initTouchEvent() {
-        this.saveCard.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
+        this.node.on(cc.Node.EventType.MOUSE_MOVE, this.mouseMoveEvent.bind(this), this);
         this.saveCard.on(cc.Node.EventType.MOUSE_LEAVE, this.mouseLeaveEvent.bind(this), this);
         this.saveCard.on(cc.Node.EventType.TOUCH_START, this.touchStartEvent.bind(this), this);
         this.saveCard.on(cc.Node.EventType.TOUCH_MOVE, this.touchMoveEvent.bind(this), this);
@@ -90,20 +90,69 @@ export default class CombatView extends ViewBase {
 
     touchStartEvent(e: cc.Event.EventTouch) {
         this.mouseStaus = false;
-        this.clickCardPos = e.getLocation();
-        let node:cc.Node = e.target
-        cc.log("start--->", this.clickCardPos,node.position);
+        this.clickCardPos = this.saveCard.convertToNodeSpaceAR(e.getLocation()).x
     }
 
-    touchEndEvent(e: cc.Event) {
+    touchEndEvent(e: cc.Event.EventTouch) {
         this.mouseStaus = true;
-        let node: cc.Node = e.currentTarget;
-        // cc.log("end--->", index);
+        let movingX = this.saveCard.convertToNodeSpaceAR(e.getLocation()).x;
+        if (movingX == this.clickCardPos) {  //莫得点
+            for (let i = 0; i < sanka.skill.getSkillWidth(); i++) {
+                let card = sanka.skill.skillPool[i];
+                if (card && this.noteCardArrow(card) < movingX && this.noteCardArrow(card, false) > movingX) {
+                    cc.log(card.getComponent(card.name).index, "莫得移动")
+                }
+            }
+        }
     }
 
-    touchMoveEvent(e: cc.Event) {
+    touchMoveEvent(e: cc.Event.EventTouch) {
         this.mouseStaus = false;
-        // cc.log("move--->",index);
+        let movingX = this.saveCard.convertToNodeSpaceAR(e.getLocation()).x;
+        let left = movingX > this.clickCardPos ? this.clickCardPos : movingX;
+        let right = movingX < this.clickCardPos ? this.clickCardPos : movingX;
+        for (let i = 0; i < sanka.skill.getSkillWidth(); i++) {
+            let card = sanka.skill.skillPool[i];
+            if(card){
+                if (this.slideLength(card, left, right)) {
+                    card.getComponent(card.name).showHight(true);
+                }else{
+                    card.getComponent(card.name).showHight(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * 计算card的有效范围
+     * @param card 卡牌
+     * @param isleft 是否为最左边
+     */
+    noteCardArrow(card: cc.Node, isleft = true) {
+        let x = card.x;
+        let width = card.width;
+        if (isleft) return x - width / 2;
+        return x + width / 2;
+    }
+
+
+    /**
+     * 判断滑动距离
+     * @param left 左边
+     * @param right 右边
+     * @param card 卡牌
+     */
+    slideLength(card, left, right) {
+        if (!card) return false;
+        //极限左边                                                 
+        if (this.noteCardArrow(card, false) - 130 >= left && this.noteCardArrow(card, false) - 130 <= right) {
+            return true;
+        }
+        //极限右边
+        if (this.noteCardArrow(card) < right && this.noteCardArrow(card) > left) {
+            return true;
+        }
+        else false;
     }
 
     /**创建卡牌 */
@@ -114,9 +163,10 @@ export default class CombatView extends ViewBase {
                     let cell: cc.Node = cc.instantiate(asset)
                     this.saveCard.addChild(cell);
                     sanka.skill.setSkill(i, cell, cardList[i]);
-                    // sanka.time.addScheduleOnce(`flyTime${i}`, () => {
-                    //     cell.getComponent(cell.name).flyToCtrlConsole();
-                    // }, 0.1 * i, this)
+                    cell.getComponent(cell.name).setOpacity(0);
+                    sanka.time.addScheduleOnce(`flyTime${i}`, () => {
+                        cell.getComponent(cell.name).flyToCtrlConsole();
+                    }, 0.1 * i, this)
                 }
             } else {
                 let cell = cc.instantiate(asset)
@@ -124,7 +174,11 @@ export default class CombatView extends ViewBase {
             }
             this.saveCard.width = sanka.skill.skillPool.length * 130 + 200;
             this.updateCardPos();
+            sanka.time.addScheduleOnce("mouseStaus",()=>{
+                this.mouseStaus = true;
+            },0,this);
         }
+        this.mouseStaus = false;
         if (this.cardNode) {
             func(this.cardNode);
             return;
